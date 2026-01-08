@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selfie Page</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50px;
+}
+video, img {
+    width: 300px;
+    border-radius: 10px;
+    margin: 20px 0;
+    border: 3px solid #f00;
+}
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #f00;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<h2>Hello <span id="username"></span>! Take your selfie</h2>
+<video id="video" autoplay></video>
+<br>
+<button onclick="takeSelfie()">Take Selfie</button>
+<br>
+<img id="selfie" src="">
+<br>
+<button onclick="goFinal()" id="nextBtn" style="display:none;">Continue</button>
+
+<script>
+document.getElementById('username').innerText = localStorage.getItem('user') || 'User';
+
+const video = document.getElementById('video');
+const selfie = document.getElementById('selfie');
+const nextBtn = document.getElementById('nextBtn');
+
+// Access camera
+navigator.mediaDevices.getUserMedia({video:true})
+.then(stream => { video.srcObject = stream; })
+.catch(err => { alert("Camera access denied or not supported."); });
+
+function takeSelfie(){
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video,0,0);
+    const dataURL = canvas.toDataURL("image/png");
+    selfie.src = dataURL;
+    localStorage.setItem("selfie", dataURL);
+    nextBtn.style.display = "inline-block";
+}
+
+function goFinal(){
+    window.location.href = "final.html";
+}
+</script>
+</body>
+</html>

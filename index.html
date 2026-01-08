@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Complete Marrow Access</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background: #222;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+input {
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+}
+button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #f00;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+}
+.error {color: yellow;}
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Complete Marrow & Prepladder Access</h2>
+    <p>Enter your User ID and Password</p>
+    <input type="text" id="userid" placeholder="User ID"><br>
+    <input type="password" id="pass" placeholder="Password"><br>
+    <button onclick="checkLogin()">Login</button>
+    <p class="error" id="error"></p>
+</div>
+
+<script>
+const users = {
+    "Jawa7899": "6699",
+    "Jawa7799": "6699",
+    "Jawa6699": "6699"
+};
+
+function checkLogin() {
+    const id = document.getElementById('userid').value;
+    const pass = document.getElementById('pass').value;
+    if(users[id] && users[id] === pass){
+        localStorage.setItem("user", id); // store for selfie page
+        window.location.href = "selfie.html";
+    } else {
+        document.getElementById('error').innerText = "Invalid User ID or Password!";
+    }
+}
+</script>
+</body>
+</html>
